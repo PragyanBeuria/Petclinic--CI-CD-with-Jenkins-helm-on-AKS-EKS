@@ -19,13 +19,19 @@ pipeline {
             }
         }
          stage('Build docker image') {
-    steps {
+      steps {
         script {
-
-            def customImage = docker.build("pragyan23/petcliniclab",".") 
+          try {
+            def customImage = docker.build("pragyan23/petcliniclab", ".")
             docker.withRegistry('https://registry.hub.docker.com', dockerhub) {
-                customImage.push("${env.BUILD_NUMBER}")
+              customImage.push("${env.BUILD_NUMBER}")
             }
+          } catch (Exception e) {
+            echo "Error building or pushing image: ${e.message}"
+            // Add additional error handling and notification steps
+          }
         }
+      }
     }
+  }
 }
