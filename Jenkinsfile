@@ -25,7 +25,7 @@ pipeline {
                     def docker = tool 'docker'  // Ensure Docker is configured in Jenkins
                     
                     // Build the Docker image
-                    def customImage = docker.build(' -t pragyan23/petcliniclab', "./docker")
+                    def customImage = docker.build('pragyan23/petcliniclab', "./docker")
                     
                     // Push the image to Docker Hub
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
