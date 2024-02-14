@@ -18,16 +18,13 @@ pipeline {
                 sh 'cp -r target/*.jar docker'
             }
         }
-         
          stage('Build docker image') {
-           steps {
-               script {         
-                 def customImage = docker.build('pragyan23/petcliniclab', "./docker")
-                 docker.withRegistry('https://registry.hub.docker.com', dockerhub') {
-                 customImage.push("${env.BUILD_NUMBER}")
-                 }                     
-           }
+    steps {
+        script {
+            def customImage = docker.build("pragyan23/petcliniclab", ".") // Build from current directory (./)
+            docker.withRegistry('https://registry.hub.docker.com', dockerhub) {
+                customImage.push("${env.BUILD_NUMBER}")
+            }
         }
-	  }
     }
 }
