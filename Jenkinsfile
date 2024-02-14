@@ -23,7 +23,8 @@ pipeline {
             steps {
                 script {
                     def docker = tool 'docker'  // Ensure Docker is configured in Jenkins
-                    
+                    // Navigate to the docker directory
+                    def dockerDir = pwd() + '/docker'
                     // Build the Docker image
                     def customImage = docker.build('pragyan23/petcliniclab', "./docker")
                     
