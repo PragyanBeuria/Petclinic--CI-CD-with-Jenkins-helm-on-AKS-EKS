@@ -19,14 +19,15 @@ pipeline {
             }
         }
         stage('Build docker image') {
-           steps {
-               script {         
-                 def customImage = docker.build('pragyan23/petcliniclab', "./docker")
-                 docker.withRegistry('mylab2024.azurecr.io', 'acr-demo') {
-                 customImage.push("${env.BUILD_NUMBER}")
-                 }                     
-           }
-        }
-	  }
+    steps {
+        script {
+            // Define a custom Docker image using docker.build
+            def customImage = docker.build('pragyan23/petcliniclab', "./docker")
+            
+            // Push the custom Docker image to a container registry
+            docker.withRegistry('https://mylab2024.azurecr.io', 'acr-demo') {
+                customImage.push("${env.BUILD_NUMBER}")
+            }
+        }                     
     }
 }
