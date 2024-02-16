@@ -23,7 +23,7 @@ pipeline {
         script {
           try {
             def customImage = docker.build("pragyan23/petcliniclab", ".")
-            docker.withRegistry('https://registry.hub.docker.com', acr-demo) {
+            docker.withRegistry('mylab2024.azurecr.io', acr-demo) {
               customImage.push("${env.BUILD_NUMBER}")
             }
           } catch (Exception e) {
