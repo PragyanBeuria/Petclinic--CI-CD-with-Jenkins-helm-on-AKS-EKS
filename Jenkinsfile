@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_REGISTRY = 'mylab2024.azurecr.io'
+        DOCKER_REGISTRY = 'https://mylab2024.azurecr.io'
     }
     tools {
         maven 'Maven'
@@ -34,5 +34,3 @@ pipeline {
         }
     }
 }
-
-       
