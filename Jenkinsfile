@@ -23,12 +23,16 @@ pipeline {
         }
 
         stage('Build docker image') {
-    steps {
-        script {         
-            def customImage = docker.build('petcliniclab', './docker')
-            docker.withRegistry("${env.DOCKER_REGISTRY}", 'acr-demo') {
-                customImage.push("${env.BUILD_NUMBER}")
+            steps {
+                script {         
+                    def customImage = docker.build('petcliniclab', './docker')
+                    docker.withRegistry("${env.DOCKER_REGISTRY}", 'acr-demo') {
+                        customImage.push("${env.BUILD_NUMBER}")
+                    }
+                }
             }
         }
     }
 }
+
+       
