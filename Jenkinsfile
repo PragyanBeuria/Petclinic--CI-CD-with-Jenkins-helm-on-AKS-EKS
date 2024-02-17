@@ -18,15 +18,11 @@ pipeline {
                 sh 'cp -r target/*.jar docker'
             }
         }
-        pipeline {
-    agent any
-    
-    environment {
-        DOCKER_REGISTRY = 'https://mylab2024.azurecr.io'
-    }
-    
-    stages {
+        
         stage('Build and Push Docker Image') {
+            environment {
+                DOCKER_REGISTRY = 'https://mylab2024.azurecr.io'
+            }
             steps {
                 script {
                     docker.withRegistry("${env.DOCKER_REGISTRY}") {
@@ -37,4 +33,5 @@ pipeline {
         }
     }
 }
+
 
