@@ -21,12 +21,15 @@ pipeline {
                 sh 'cp -r target/*.jar docker'
             }
         }
-stage('Build docker image') {
-    steps {
-        script {         
-            def customImage = docker.build('pragyan23/petcliniclab', './docker/Dockerfile')
-            docker.withRegistry('https://registry.hub.docker.com', 'acr-demo') {
-                customImage.push("${env.BUILD_NUMBER}")
+
+        stage('Build docker image') {
+            steps {
+                script {         
+                    def customImage = docker.build('petcliniclab', './docker/Dockerfile')
+                    docker.withRegistry("${env.DOCKER_REGISTRY}", 'acr-demo') {
+                        customImage.push("${env.BUILD_NUMBER}")
+                    }
+                }
             }
         }
     }
